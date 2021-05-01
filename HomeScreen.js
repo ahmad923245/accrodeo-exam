@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { ScrollView, StatusBar, StyleSheet, Text, View, Button, Alert } from 'react-native'
+import { ScrollView, StatusBar, StyleSheet, Text, View, Button, ActivityIndicator } from 'react-native'
 import { Picker } from '@react-native-picker/picker';
-import Accroden from './Accroden'
 import { List } from 'react-native-paper';
 
 import _ from 'lodash';
@@ -9,6 +8,7 @@ const url = "https://data.sa.gov.au/data/api/3/action/datastore_search?resource_
 const HomeScreen = ({ navigation }) => {
     const [data, SetData] = useState({})
     const [selectedLanguage, setSelectedLanguage] = useState('Suburb');
+    const [loading, setLoading] = useState(true);
     const [groupedData, setgroupedData] = useState({})
 
 
@@ -19,6 +19,7 @@ const HomeScreen = ({ navigation }) => {
             .then(res => res.json())
             .then(data => {
                 SetData(data)
+                setLoading(false)
                 // console.log('so this is the data from arrayss',data.result.records))
 
             })
@@ -45,9 +46,20 @@ const HomeScreen = ({ navigation }) => {
 
     return (
         <View style={{ flex: 1, margin: StatusBar.currentHeight }}>
-
+        
             <Text style={{ fontSize: 20, fontWeight: 'bold', alignSelf: 'center', padding: 10 }}>Demo Api</Text>
-            <ScrollView showsVerticalScrollIndicator={false}>
+            {loading ? (
+          <ActivityIndicator
+          style={{alignItems:'center'}}
+                size="large"
+                color="green"
+            visible={loading}
+    
+          />
+        ) : (<ScrollView showsVerticalScrollIndicator={false}>
+
+
+
 
                 <Text style={{ fontSize: 18, fontWeight: 'bold', padding: 10 }}>Group by</Text>
                 <Picker
@@ -64,7 +76,9 @@ const HomeScreen = ({ navigation }) => {
                         Object.keys(groupedData).map((item, i) => {
 
                             return (
-                                <View style={{ borderWidth: 1, borderRadius: 10, marginBottom: 4 }}>
+                                <View
+                                key={i}
+                                style={{ borderWidth: 1, borderRadius: 10, marginBottom: 4 }}>
                                     <List.Accordion
 
 
@@ -78,7 +92,7 @@ const HomeScreen = ({ navigation }) => {
                                                 return <List.Item
                                                     onPress={() => navigation.navigate('Details', {
                                                         item,
-                                                        data: groupedData[item]
+                                                        data: val
                                                     })}
                                                     title={`(${val['Reported Date']}) ` + val['Offence Level 1 Description']} />
                                             })
@@ -94,6 +108,9 @@ const HomeScreen = ({ navigation }) => {
                 </View>
 
             </ScrollView>
+             )
+            }
+          
         </View>
     )
 }
