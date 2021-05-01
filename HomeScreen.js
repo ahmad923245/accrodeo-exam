@@ -50,7 +50,7 @@ const HomeScreen = ({ navigation }) => {
             <Text style={{ fontSize: 20, fontWeight: 'bold', alignSelf: 'center', padding: 10 }}>Demo Api</Text>
             {loading ? (
           <ActivityIndicator
-          style={{alignItems:'center'}}
+          style={{alignSelf:'center',}}
                 size="large"
                 color="green"
             visible={loading}
@@ -80,8 +80,6 @@ const HomeScreen = ({ navigation }) => {
                                 key={i}
                                 style={{ borderWidth: 1, borderRadius: 10, marginBottom: 4 }}>
                                     <List.Accordion
-
-
                                         key={i}
                                         title={item}
                                     >
@@ -90,6 +88,7 @@ const HomeScreen = ({ navigation }) => {
                                             groupedData[item].map((val, i) => {
 
                                                 return <List.Item
+                                                key={i}
                                                     onPress={() => navigation.navigate('Details', {
                                                         item,
                                                         data: val
