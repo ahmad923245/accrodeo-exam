@@ -1,19 +1,32 @@
 import React from 'react'
 import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import Header from './Header'
 
 const DetailScreen = ({ navigation, route }) => {
     const { item, data } = route.params
     console.log(data)
     return (
-        <View style={{ flex: 1, margin: StatusBar.currentHeight }}>
-            <TouchableOpacity
+        <>
+        <View style={styles.header}>
+            <Text style={{ color: '#fff', alignSelf: 'center',fontSize: 20,top:15 }}>Details</Text>
+            
+                  <TouchableOpacity
                 style={styles.bckBtn}
                 onPress={() => navigation.goBack()}>
 
-                <Ionicons size={25} name="arrow-back" />
+                   
+                      <Ionicons color="#fff" size={25} name="arrow-back" /> 
+                  
+               
 
             </TouchableOpacity>
+          
+           
+
+        </View>
+        <View style={{ flex: 1,padding:30 }}>
+        
             <Text style={{ fontWeight: 'bold', fontSize: 20, padding: 10, alignSelf: 'center' }}>{item}</Text>
             <View >
                 <View style={{flexDirection:'row',alignItems:'center',margin:5}}>
@@ -57,15 +70,24 @@ const DetailScreen = ({ navigation, route }) => {
                 </View>
             </View>
         </View>
+        </>
     )
 }
 
 export default DetailScreen
 
 const styles = StyleSheet.create({
-    bckBtn: {
+   
+    header: {
+        justifyContent:"center",
+        marginTop: 30,
+        height: 65,
+        width: '100%',
+        backgroundColor: '#1C71A1'
 
-        paddingTop: 25,
-
+    },
+    bckBtn:{
+        left:20,
+        marginBottom:10
     }
 })

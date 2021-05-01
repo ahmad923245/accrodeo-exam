@@ -4,6 +4,8 @@ import { Picker } from '@react-native-picker/picker';
 import { List } from 'react-native-paper';
 
 import _ from 'lodash';
+import Header from './Header';
+
 const url = "https://data.sa.gov.au/data/api/3/action/datastore_search?resource_id=590083cd-be2f-4a6c-871e-0ec4c717717b"
 const HomeScreen = ({ navigation }) => {
     const [data, SetData] = useState({})
@@ -45,9 +47,10 @@ const HomeScreen = ({ navigation }) => {
 
 
     return (
-        <View style={{ flex: 1, margin: StatusBar.currentHeight }}>
+        <>
+                <Header title="Home" />
+        <View style={{ flex: 1,marginTop:5,padding:10}}>
         
-            <Text style={{ fontSize: 20, fontWeight: 'bold', alignSelf: 'center', padding: 10 }}>Demo Api</Text>
             {loading ? (
           <ActivityIndicator
           style={{alignSelf:'center',}}
@@ -71,7 +74,7 @@ const HomeScreen = ({ navigation }) => {
                     <Picker.Item label="Offence Level 2 Description" value="Offence Level 2 Description" />
                 </Picker>
 
-                <View >
+                <View style={{marginTop:10,padding:10}} >
                     {
                         Object.keys(groupedData).map((item, i) => {
 
@@ -93,7 +96,7 @@ const HomeScreen = ({ navigation }) => {
                                                         item,
                                                         data: val
                                                     })}
-                                                    title={`(${val['Reported Date']}) ` + val['Offence Level 1 Description']} />
+                                                    title={`(${val['Reported Date']}) ` + `(${val['Offence count']})`+ val['Offence Level 1 Description']} />
                                             })
                                         }
 
@@ -111,6 +114,7 @@ const HomeScreen = ({ navigation }) => {
             }
           
         </View>
+        </>
     )
 }
 
