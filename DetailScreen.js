@@ -1,22 +1,15 @@
 import React from 'react'
 import { StatusBar, StyleSheet, Text, View } from 'react-native'
 
-const DetailScreen = ({navigatio,route}) => {
-    const {item,groupedData} = route.params
-    console.log(groupedData[item])
+const DetailScreen = ({ navigatio, route }) => {
+    const { item, data } = route.params
+    console.log(data)
     return (
-        <View style={{flex:1,margin:StatusBar.currentHeight}}>
-            <Text style={{fontWeight:'bold',fontSize:20,padding:10}}>{item}</Text>
-
-                {
-                    groupedData[item].map((item,i)=>{
-                        return(
-                            <View key={i}>
-                                <Text > Level: {item['Offence Level 2 Description']} Dated : {item['Reported Date']}</Text>
-                            </View>
-                        )
-                    })
-                }
+        <View style={{ flex: 1, margin: StatusBar.currentHeight }}>
+            <Text style={{ fontWeight: 'bold', fontSize: 20, padding: 10 }}>{item}</Text>
+            <View>
+                <Text> Level: {data['Offence Level 2 Description']} Dated : {data['Reported Date']}</Text>
+            </View>
         </View>
     )
 }
